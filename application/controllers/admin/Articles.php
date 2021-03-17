@@ -13,15 +13,17 @@ class Articles extends CI_Controller {
 	public function index() {
 		//$data['article'] = $this->db->query("SELECT * from tbl_penjualan_header a left join tbl_pelanggan b on a.kd_pelanggan=b.kd_pelanggan left join tbl_pegawai c on a.kd_pegawai=c.kd_pegawai where a.kd_penjualan = '$id'")->result();
 		//$data['article'] = $this->db->query("select * from article a left join category c on a.category = c.id left join user u on a.author = u.id order by a.id desc")->result();
+		$data['config']	 = $this->M_data->get_data('config')->row();
 		$data['article'] = $this->db->query("SELECT * FROM article,category,user WHERE category = cat_id and author = uid order by id desc")->result();
-		$this->load->view('admin/dashboard/header');
+		$this->load->view('admin/dashboard/header',$data);
 		$this->load->view('admin/articles/index',$data);
 		$this->load->view('admin/dashboard/footer');
 	}
 	
 	public function add() {
 		$data['category'] = $this->M_data->get_data('category')->result();
-		$this->load->view('admin/dashboard/header');
+		$data['config']	 = $this->M_data->get_data('config')->row();
+		$this->load->view('admin/dashboard/header',$data);
 		$this->load->view('admin/articles/viewadd',$data);
 		$this->load->view('admin/dashboard/footer');
 	}
@@ -72,13 +74,15 @@ class Articles extends CI_Controller {
 			} else {
 				$this->form_validation->set_message('sampul',$data['gambar_error'] = $this->upload->display_errors());
 				$data['category'] = $this->M_data->get_data('category')->result();
-				$this->load->view('admin/dashboard/header');
+				$data['config']	 = $this->M_data->get_data('config')->row();
+				$this->load->view('admin/dashboard/header',$data);
 				$this->load->view('admin/articles/viewadd',$data);
 				$this->load->view('admin/dashboard/footer');
 			}
 		} else {
 			$data['category'] = $this->M_data->get_data('category')->result();
-			$this->load->view('admin/dashboard/header');
+			$data['config']	 = $this->M_data->get_data('config')->row();
+			$this->load->view('admin/dashboard/header',$data);
 			$this->load->view('admin/articles/viewadd',$data);
 			$this->load->view('admin/dashboard/footer');
 		}
@@ -88,7 +92,8 @@ class Articles extends CI_Controller {
 		$where = array('id' => $id);
 		$data['article'] = $this->M_data->edit_data($where,'article')->result();
 		$data['category'] = $this->M_data->get_data('category')->result();
-		$this->load->view('admin/dashboard/header');
+		$data['config']	 = $this->M_data->get_data('config')->row();
+		$this->load->view('admin/dashboard/header',$data);
 		$this->load->view('admin/articles/viewedit',$data);
 		$this->load->view('admin/dashboard/footer');
 	}
@@ -134,7 +139,8 @@ class Articles extends CI_Controller {
 					$where = array('id' => $id);
 					$data['article'] = $this->M_data->edit_data($where,'article')->result();
 					$data['category'] = $this->M_data->get_data('category')->result();
-					$this->load->view('admin/dashboard/header');
+					$data['config']	 = $this->M_data->get_data('config')->row();
+					$this->load->view('admin/dashboard/header',$data);
 					$this->load->view('admin/articles/viewedit',$data);
 					$this->load->view('admin/dashboard/footer');
 				} 
@@ -146,7 +152,8 @@ class Articles extends CI_Controller {
 			$where = array('id' => $id);
 			$data['article'] = $this->M_data->edit_data($where,'article')->result();
 			$data['category'] = $this->M_data->get_data('category')->result();
-			$this->load->view('admin/dashboard/header');
+			$data['config']	 = $this->M_data->get_data('config')->row();
+			$this->load->view('admin/dashboard/header',$data);
 			$this->load->view('admin/articles/viewedit',$data);
 			$this->load->view('admin/dashboard/footer');
 		}

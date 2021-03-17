@@ -37,9 +37,9 @@
 								<tr>
 									<td><?php echo $no++ ;?></td>
 									<td><?php echo $pag->page_title;?></td>
-									<td><?php echo $pag->page_slug;?></td>
+									<td><?php echo base_url().'pages/'.$pag->page_slug; ?></td>
 									<td>
-										<a href="<?php echo base_url().'admin/pages/'.$pag->page_slug; ?>" class="btn btn-xs btn-primary"> <i class="fa fa-eye"></i> </a>
+										<a target="_blank" href="<?php echo base_url().'page/'.$pag->page_slug; ?>" class="btn btn-xs btn-primary"> <i class="fa fa-eye"></i> </a>
 										<a href="<?php echo base_url().'admin/pages/edit/'.$pag->page_id; ?>" class="btn btn-xs btn-success"> <i class="fa fa-edit"></i> </a>
 										<a href="<?php echo base_url().'admin/pages/del/'.$pag->page_id; ?>" class="btn btn-xs btn-danger"> <i class="fa fa-trash"></i> </a>
 									</td>

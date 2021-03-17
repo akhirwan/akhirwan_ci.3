@@ -57,9 +57,19 @@
 										}?>
 									</td>
 									<td>
-										<a href="<?php echo base_url().$art->slug; ?>" class="btn btn-xs btn-primary"> <i class="fa fa-eye"></i> </a>
+										<a target="_blank" href="<?php echo base_url().$art->slug; ?>" class="btn btn-xs btn-primary">
+											<i class="fa fa-eye"></i> 
+										</a>
+										<?php if($this->session->userdata('level') != "admin"){
+											if($this->session->userdata('uid') == $art->author){
+											?>
 										<a href="<?php echo base_url().'admin/articles/edit/'.$art->id; ?>" class="btn btn-xs btn-success"> <i class="fa fa-edit"></i> </a>
 										<a href="<?php echo base_url().'admin/articles/del/'.$art->id; ?>" class="btn btn-xs btn-danger"> <i class="fa fa-trash"></i> </a>
+										<?php }
+										} else { ?>
+										<a href="<?php echo base_url().'admin/articles/edit/'.$art->id; ?>" class="btn btn-xs btn-success"> <i class="fa fa-edit"></i> </a>
+										<a href="<?php echo base_url().'admin/articles/del/'.$art->id; ?>" class="btn btn-xs btn-danger"> <i class="fa fa-trash"></i> </a>
+										<?php } ?>
 									</td>
 								</tr>
 								<?php 

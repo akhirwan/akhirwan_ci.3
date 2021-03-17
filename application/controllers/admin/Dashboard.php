@@ -11,44 +11,71 @@ class Dashboard extends CI_Controller {
 	}
 	
 	public function index() {
-		$this->load->view('admin/dashboard/header');
-		$this->load->view('admin/dashboard/index');
+		$data['sum_articles'] 	= $this->M_data->get_data('article')->num_rows();
+		$data['sum_categories'] = $this->M_data->get_data('category')->num_rows();
+		$data['sum_users'] 		= $this->M_data->get_data('user')->num_rows();
+		$data['sum_pages'] 		= $this->M_data->get_data('pages')->num_rows();
+		$data['config']			= $this->M_data->get_data('config')->row();
+		$this->load->view('admin/dashboard/header',$data);
+		$this->load->view('admin/dashboard/index',$data);
 		$this->load->view('admin/dashboard/footer');
 	}
 	
-	public function gantipwd() {
-		$this->load->view('admin/dashboard/header');
-		$this->load->view('admin/dashboard/viewgantipwd');
+	public function config() {
+		$data['configure'] = $this->M_data->get_data('config')->result();
+		$data['config']	= $this->M_data->get_data('config')->row();
+		$this->load->view('admin/dashboard/header',$data);
+		$this->load->view('admin/dashboard/viewconfig',$data);
 		$this->load->view('admin/dashboard/footer');
 	}
 	
-	public function updatepwd() {
-		$this->form_validation->set_rules('password_lama','Password Lama','required');
-		$this->form_validation->set_rules('password_baru','Password Baru','required|min_length[8]');
-		$this->form_validation->set_rules('konfirmasi_password','Konfirmasi Password Baru','required|matches[password_baru]');
+	public function config_update() {
+		$this->form_validation->set_rules('nama','Nama Website','required');
+		$this->form_validation->set_rules('desk','Deskripsi Website','required');
 		
-		if($this->form_validation->run() !=false){
-			$password_lama = $this->input->post('password_lama');
-			$password_baru = $this->input->post('password_baru');
-			$konfirmasi_password = $this->input->post('konfirmasi_password');
-			
-			$where = array(
-				'uid'		=> $this->session->userdata('id'),
-				'password'	=> md5($password_lama)
+		if($this->form_validation->run()!=false){
+			$url	 = $this->input->post('url');
+			$nama 	 = $this->input->post('nama');
+			$desk	 = $this->input->post('desk');
+			$fb		 = $this->input->post('fb');
+			$li		 = $this->input->post('li');
+			$ig		 = $this->input->post('ig');
+			$github	 = $this->input->post('github');
+			$phone	 = $this->input->post('phone');
+			$email	 = $this->input->post('email');
+			$address = $this->input->post('address');
+			$where	= array();
+			$data 	= array(
+				'url'			=> $url,
+				'name'			=> $nama,
+				'description'	=> $desk,
+				'link_fb'		=> $fb,
+				'link_li'		=> $li,
+				'link_ig'		=> $ig,
+				'link_github'	=> $github,
+				'phone'			=> $phone,
+				'email'			=> $email,
+				'address'		=> $address
 			);
-			$cek = $this->M_data->cek_login('user', $where)->num_rows();
+			$this->M_data->update_data($where,$data,'config');
 			
-			if($cek > 0){
-				$w 		= array('uid' => $this->session->userdata('id'));
-				$data 	= array('password' => md5($password_baru));
-				$this->M_data->update_data($where, $data, 'user');
-				redirect('admin/dashboard/gantipwd?alert=sukses');
-			} else {
-				redirect('admin/dashboard/gantipwd?alert=gagal');
+			if(!empty($_FILES['logo']['name'])){
+				$config['upload_path']	 = './images/website/';
+				$config['allowed_types'] = 'jpg|png';
+				
+				$this->load->library('upload',$config);
+				if($this->upload->do_upload('logo')){
+					$gambar = $this->upload->data();
+					$logo 	= $gambar['file_name'];
+					$this->db->query("update config set logo = '$logo'");
+				}
 			}
+			redirect(base_url().'admin/dashboard/config?alert=sukses');
 		} else {
-			$this->load->view('admin/dashboard/header');
-			$this->load->view('admin/dashboard/viewgantipwd');
+			$data['configure'] = $this->M_data->get_data('config')->result();
+			$data['config']	= $this->M_data->get_data('config')->row();
+			$this->load->view('admin/dashboard/header',$data);
+			$this->load->view('admin/dashboard/viewconfig',$data);
 			$this->load->view('admin/dashboard/footer');
 		}
 	}

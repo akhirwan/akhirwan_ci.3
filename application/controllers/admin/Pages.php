@@ -11,14 +11,16 @@ class Pages extends CI_Controller {
 	}
 	
 	public function index() {
-		$data['pages'] = $this->M_data->get_data('pages')->result();
-		$this->load->view('admin/dashboard/header');
+		$data['pages'] 	= $this->M_data->get_data('pages')->result();
+		$data['config'] = $this->M_data->get_data('config')->row();
+		$this->load->view('admin/dashboard/header',$data);
 		$this->load->view('admin/pages/index',$data);
 		$this->load->view('admin/dashboard/footer');
 	}
 	
 	public function add() {
-		$this->load->view('admin/dashboard/header');
+		$data['config']	 = $this->M_data->get_data('config')->row();
+		$this->load->view('admin/dashboard/header',$data);
 		$this->load->view('admin/pages/viewadd');
 		$this->load->view('admin/dashboard/footer');
 	}
@@ -48,7 +50,8 @@ class Pages extends CI_Controller {
 	public function edit($id) {
 		$where = array('page_id' => $id);
 		$data['pages'] = $this->M_data->edit_data($where,'pages')->result();
-		$this->load->view('admin/dashboard/header');
+		$data['config']	 = $this->M_data->get_data('config')->row();
+		$this->load->view('admin/dashboard/header',$data);
 		$this->load->view('admin/pages/viewedit',$data);
 		$this->load->view('admin/dashboard/footer');
 	}

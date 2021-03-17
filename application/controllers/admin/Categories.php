@@ -12,13 +12,15 @@ class Categories extends CI_Controller {
 	
 	public function index() {
 		$data['category'] = $this->M_data->get_data('category')->result();
-		$this->load->view('admin/dashboard/header');
+		$data['config']	  = $this->M_data->get_data('config')->row();
+		$this->load->view('admin/dashboard/header',$data);
 		$this->load->view('admin/categories/index',$data);
 		$this->load->view('admin/dashboard/footer');
 	}
 	
 	public function add() {
-		$this->load->view('admin/dashboard/header');
+		$data['config']	 = $this->M_data->get_data('config')->row();
+		$this->load->view('admin/dashboard/header',$data);
 		$this->load->view('admin/categories/viewadd');
 		$this->load->view('admin/dashboard/footer');
 	}
@@ -44,7 +46,8 @@ class Categories extends CI_Controller {
 	public function edit($id) {
 		$where = array('cat_id' => $id);
 		$data['category'] = $this->M_data->edit_data($where,'category')->result();
-		$this->load->view('admin/dashboard/header');
+		$data['config']	 = $this->M_data->get_data('config')->row();
+		$this->load->view('admin/dashboard/header',$data);
 		$this->load->view('admin/categories/viewedit',$data);
 		$this->load->view('admin/dashboard/footer');
 	}

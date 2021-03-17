@@ -2,8 +2,10 @@
 <html>
 
 <head>
-    <title>akhirwan.my.id</title>
+    <title><?php echo $config->name ?> - <?php echo $config->description ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Favicons -->
+	<link href="<?php echo base_url().'/images/website/'.$config->logo; ?>" rel="icon">
     <!-- Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300,400' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
@@ -98,7 +100,7 @@
                                         <h4 class="username"><?php echo $this->session->userdata('name') ?></h4>
                                         <p><?php echo $this->session->userdata('email') ?></p>
                                         <div class="btn-group margin-bottom-2x" role="group">
-											<a href="<?php echo base_url().'admin/dashboard/gantipwd' ?>" class="btn btn-default"><i class="fa fa-sign-out"></i> Ganti Password</a>
+											<a href="<?php echo base_url().'admin/users/profile' ?>" class="btn btn-default"><i class="fa fa-user-secret"></i> Profile </a>
 											<a href="<?php echo base_url().'admin/login/logout' ?>" class="btn btn-default"><i class="fa fa-sign-out"></i> Logout</a>
                                         </div>
                                     </div>
@@ -113,7 +115,7 @@
                     <div class="side-menu-container">
                         <div class="navbar-header">
                             <a class="navbar-brand" href="#">
-                                <div class="icon fa fa-terminal"></div>
+                                <div class="icon fa fa-coffee"></div>
                                 <div class="title">akhirwan.my.id</div>
                             </a>
                             <button type="button" class="navbar-expand-toggle pull-right visible-xs">
@@ -126,21 +128,35 @@
                                     <span class="icon fa fa-tachometer"></span><span class="title">Dashboard</span>
                                 </a>
                             </li>
+							<?php if($this->session->userdata('level') == "admin"){ ?>
                             <li>
                                 <a href="<?php echo base_url().'admin/categories' ?>">
                                     <span class="icon fa fa-cubes"></span><span class="title">Categories</span>
                                 </a>
                             </li>
+							<?php } ?>
                             <li>
                                 <a href="<?php echo base_url().'admin/articles' ?>">
                                     <span class="icon fa fa-newspaper-o"></span><span class="title">Articles</span>
                                 </a>
                             </li>
+							<?php if($this->session->userdata('level') == "admin"){ ?>
                             <li>
                                 <a href="<?php echo base_url().'admin/pages' ?>">
-                                    <span class="icon fa fa-slack"></span><span class="title">Pages</span>
+                                    <span class="icon fa fa-tags"></span><span class="title">Pages</span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="<?php echo base_url().'admin/users' ?>">
+                                    <span class="icon fa fa-users"></span><span class="title">Users and Role</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url().'admin/dashboard/config' ?>">
+                                    <span class="icon fa fa-cog"></span><span class="title">Configurations</span>
+                                </a>
+                            </li>
+							<?php } ?>
                         </ul>
                     </div>
                     <!-- /.navbar-collapse -->

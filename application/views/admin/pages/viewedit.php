@@ -15,7 +15,7 @@
 						<?php foreach($pages as $p) { ?>
 						<form action="<?php echo base_url('admin/pages/update')?>" method="post">
 							<div class="form-group">
-								<input type="text" class="form-control" name="id" placeholder="Masukan judul halaman" value="<?php echo $p->page_id; ?>">
+								<input type="hidden" class="form-control" name="id" placeholder="Masukan judul halaman" value="<?php echo $p->page_id; ?>">
 								<input type="text" class="form-control" name="judul" placeholder="Masukan judul halaman" value="<?php echo $p->page_title; ?>">
 								<?php echo form_error('judul');?>
 							</div>
@@ -27,7 +27,7 @@
 							</div>
 							<div class="form-group">
 								<div class="">
-									<button type="submit" class="btn btn-success">Submit</button>
+									<button type="submit" class="btn btn-success">Publish</button>
 								</div>
 							</div>
 						</form>

@@ -25,7 +25,7 @@
 							</div>
 							<div class="form-group">
 								<div class="">
-									<button type="submit" class="btn btn-success">Submit</button>
+									<button type="submit" class="btn btn-success">Publish</button>
 								</div>
 							</div>
 						</form>

@@ -27,10 +27,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 | There are three reserved routes:
 |
-|	$route['default_controller'] = 'welcome';
+|	$route['default_controller'] = 'front';
 |
 | This route indicates which controller class should be loaded if the
-| URI contains no data. In the above example, the "welcome" class
+| URI contains no data. In the above example, the "front" class
 | would be loaded.
 |
 |	$route['404_override'] = 'errors/page_missing';
@@ -49,6 +49,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'welcome';
-$route['404_override'] = '';
+$route['default_controller'] = 'front';
+
+$route['login'] = 'admin/login';
+
+$route['dashboard'] = 'admin/dashboard';
+
+$route['blog'] = 'front/blog';
+$route['blog/(:num)'] = 'front/blog/$1';
+
+$route['category/(:any)'] = 'front/category/$1';
+$route['category/(:any)/(:num)'] = 'front/category/$1/$s2';
+
+$route['search'] = 'front/search';
+$route['search/(:any)'] = 'front/search/$1';
+$route['search/(:any)/(:num)'] = 'front/search/$1/$2';
+
+$route['page/(:any)'] = 'front/page/$1';
+
+$route['(:any)'] = 'front/single/$1';
+
+$route['404_override'] = 'front/notfound';
 $route['translate_uri_dashes'] = FALSE;
